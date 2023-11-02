@@ -1,9 +1,21 @@
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
+{% extends 'base.html' %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5 mb-4">Latest Polls</h1>
+    <ul class="list-group">
+    {% if latest_question_list %}
+        {% for question in latest_question_list %}
+            <li class="list-group-item">
+                <a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+            </li>
+        {% endfor %}
     </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+</div>
+{% endblock %}
